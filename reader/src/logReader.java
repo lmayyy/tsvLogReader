@@ -32,22 +32,25 @@ public class logReader {
         }
 
         int uniqueUserCount = users.size();
+        int dayRangeCount = dailyMetrics.size();
 
-        printAnalyzedLogMetrics(rowCount, errorCount, dailyMetrics, uniqueUserCount, cleanDateFormat);
+        printAnalyzedLogMetrics(rowCount, errorCount, dailyMetrics, uniqueUserCount, dayRangeCount, cleanDateFormat);
         br.close();
         fr.close();
     }
 
-    private static void printAnalyzedLogMetrics(int rowCount, int errorCount, Map<Date, List<Integer>> dailyMetrics, int uniqueUserCount, DateFormat cleanDateFormat) {
+    private static void printAnalyzedLogMetrics(int rowCount, int errorCount, Map<Date, List<Integer>> dailyMetrics, int uniqueUserCount, int dayRangeCount, DateFormat cleanDateFormat) {
         System.out.println("-------------");
         System.out.println("Results:");
         System.out.println("-------------");
         System.out.println("Request Count: " + rowCount);
         System.out.println("Errors: " + errorCount);
         System.out.println("Unique Users: " + uniqueUserCount);
-        System.out.println("Count of Date Range: " + dailyMetrics.size());
+        System.out.println("Count of Date Range: " + dayRangeCount);
         System.out.println("-------------");
         System.out.println("Daily Metrics:");
+        System.out.println("-------------");
+
         dailyMetrics.forEach((key, value) -> System.out.println(
                 cleanDateFormat.format(key) + ": " + value.size())) ;
         System.out.println("-------------");
