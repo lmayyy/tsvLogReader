@@ -11,9 +11,8 @@ public class logReader {
         int rowCount = 0;
         int errorCount = 0;
         List<Integer> users = new ArrayList<Integer>();
-        List<Date> dates = new ArrayList<Date>();
         Map<Date, List<Integer>> dailyMetrics = new TreeMap<Date, List<Integer>>();
-        DateFormat cleanDateFormat = new SimpleDateFormat(("MM-dd-yyyy"));
+        DateFormat cleanDateFormat = new SimpleDateFormat(("yyyy-MM-dd"));
 
         FileReader fr = new FileReader(filepath);
         BufferedReader br = new BufferedReader(fr);
@@ -28,27 +27,30 @@ public class logReader {
             Date cleanDate = cleanDateFormat.parse(cleanSubString);
             rowCount++;
             if (errorCheck(datavalue[2])) errorCount++ ;
-            uniqueDateCheck(dates, cleanDate);
             uniqueUserCheck(users, userId);
             dailyMetricsBuilder(dailyMetrics, userId, cleanDate);
         }
 
         int uniqueUserCount = users.size();
-        int uniqueDatesCount = dates.size();
 
-        printAnalyzedLogMetrics(rowCount, errorCount, dailyMetrics, uniqueUserCount, uniqueDatesCount, cleanDateFormat);
+        printAnalyzedLogMetrics(rowCount, errorCount, dailyMetrics, uniqueUserCount, cleanDateFormat);
         br.close();
         fr.close();
     }
 
-    private static void printAnalyzedLogMetrics(int rowCount, int errorCount, Map<Date, List<Integer>> dailyMetrics, int uniqueUserCount, int uniqueDatesCount, DateFormat cleanDateFormat) {
-        System.out.println("count: " + rowCount);
-        System.out.println("errors: " + errorCount);
-        System.out.println("unique users: " + uniqueUserCount);
-        System.out.println("unique dates: " + uniqueDatesCount);
+    private static void printAnalyzedLogMetrics(int rowCount, int errorCount, Map<Date, List<Integer>> dailyMetrics, int uniqueUserCount, DateFormat cleanDateFormat) {
+        System.out.println("-------------");
+        System.out.println("Results:");
+        System.out.println("-------------");
+        System.out.println("Request Count: " + rowCount);
+        System.out.println("Errors: " + errorCount);
+        System.out.println("Unique Users: " + uniqueUserCount);
+        System.out.println("Count of Date Range: " + dailyMetrics.size());
+        System.out.println("-------------");
         System.out.println("Daily Metrics:");
         dailyMetrics.forEach((key, value) -> System.out.println(
                 cleanDateFormat.format(key) + ": " + value.size())) ;
+        System.out.println("-------------");
     }
 
     private static void dailyMetricsBuilder(Map<Date, List<Integer>> dailyMetrics, int userId, Date cleanDate) {
@@ -61,7 +63,6 @@ public class logReader {
             }
         }
         else if (dailyMetrics.containsKey(cleanDate)){
-            //do the same check to see if the user id needs to be added, and add it if so
             if(!dailyMetrics.get(cleanDate).contains(userId)) {
                 dailyMetrics.get(cleanDate).add(userId);}
         }
