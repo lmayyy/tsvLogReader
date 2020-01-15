@@ -21,3 +21,4 @@ Reads, parses, and summarizes a tsv log.
 # How to set up
 * Clone the repo
 * Compile with `javac logReader.java`
+* Run the program with `java logReader.java "{filepath}"
