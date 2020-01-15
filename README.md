@@ -19,6 +19,6 @@ Reads, parses, and summarizes a tsv log.
 * A summarized daily metrics, which details the number of unique users for the range of days represented in the log file.
 
 # How to set up
-* Clone the repo
+* Clone the repo `git clone https://github.com/lmayyy/tsvLogReader.git`
 * Compile with `javac logReader.java`
 * Run the program with `java logReader.java "{filepath}"`
