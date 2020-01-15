@@ -20,5 +20,6 @@ Reads, parses, and summarizes a tsv log.
 
 # How to set up
 * Clone the repo `git clone https://github.com/lmayyy/tsvLogReader.git`
+* cd into the `src` folder
 * Compile with `javac logReader.java`
-* Run the program with `java logReader.java "{filepath}"`
+* Run the program with `java logReader "{filepath}"`
